@@ -7,17 +7,17 @@ namespace MyAssignment.Models
     public class DeskStaff
     {
 
-        [Key]
+       [Key]
         public int Id { get; set; }
+        [MaxLength(20)]
         public string Name { get; set; }
         public int Age { get; set; }
         public string Qualification { get; set; }
         public string ShiftTiming { get; set; }
-        public DateTime DuetyTime { get; set; }
-        /// <summary>
-        /// ///
-        /// </summary>
-        [ForeignKey("StaffId")]
+        [Required]
+        public DateTime DutyTime { get; set; }
+      
+       [ForeignKey("StaffId")]
         public int StaffId { get; set; }
         public Staff Staff { get; set; }
     }

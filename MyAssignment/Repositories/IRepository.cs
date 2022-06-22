@@ -2,7 +2,7 @@
 
 namespace MyAssignment.Repositories
 {
-    public interface IRepository<T>
+    public interface IRepository<T> 
     {
         ICollection<T> Get();
         T Get(int id);

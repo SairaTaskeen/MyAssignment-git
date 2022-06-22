@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\taskesai\\source\\repos\\MyAssignment\\MyAssignment\\MyAssignment.csproj": {}
+    "D:\\OneDrive Constellation HomeBuilder Systems\\OneDrive - Constellation HomeBuilder Systems\\Pictures\\Screenshots\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment.csproj": {}
   },
   "projects": {
-    "C:\\Users\\taskesai\\source\\repos\\MyAssignment\\MyAssignment\\MyAssignment.csproj": {
+    "D:\\OneDrive Constellation HomeBuilder Systems\\OneDrive - Constellation HomeBuilder Systems\\Pictures\\Screenshots\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\taskesai\\source\\repos\\MyAssignment\\MyAssignment\\MyAssignment.csproj",
+        "projectUniqueName": "D:\\OneDrive Constellation HomeBuilder Systems\\OneDrive - Constellation HomeBuilder Systems\\Pictures\\Screenshots\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment.csproj",
         "projectName": "MyAssignment",
-        "projectPath": "C:\\Users\\taskesai\\source\\repos\\MyAssignment\\MyAssignment\\MyAssignment.csproj",
+        "projectPath": "D:\\OneDrive Constellation HomeBuilder Systems\\OneDrive - Constellation HomeBuilder Systems\\Pictures\\Screenshots\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment.csproj",
         "packagesPath": "C:\\Users\\taskesai\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\taskesai\\source\\repos\\MyAssignment\\MyAssignment\\obj\\",
+        "outputPath": "D:\\OneDrive Constellation HomeBuilder Systems\\OneDrive - Constellation HomeBuilder Systems\\Pictures\\Screenshots\\MyAssignment\\MyAssignment\\MyAssignment\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,7 +44,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "EntityFramework": {
+            "Microsoft.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[5.0.0, )"
             },
@@ -62,9 +66,17 @@
               "target": "Package",
               "version": "[5.0.0, )"
             },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.11.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.11.0, )"
             }
           },
           "imports": [

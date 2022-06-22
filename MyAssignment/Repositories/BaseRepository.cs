@@ -1,44 +1,67 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using MyAssignment.Services;
+using System.Collections.Generic;
+
 using System.Linq;
 
 namespace MyAssignment.Repositories
 {
-    public class BaseRepository<T> : IRepository<T> where T : class
+    public abstract class BaseRepository<T> : IRepository<T> where T : class
     {
         protected MyDbContext db;
         public BaseRepository(MyDbContext db)
         {
             this.db = db;
         }
-        public bool Add(T entity)
+        public T Get(int id)
+            
         {
-            db.Set<T>().Add(entity);
+            var dataToGet = db.Set<T>().Find(id);
+            if(dataToGet == null)
+            {
+                throw new System.Exception("Data not found");
+            }
+            return dataToGet;
+        }
+        public bool Delete(int id)
+        {
+            var itemToRemove = this.Get(id);
+            if(itemToRemove == null)
+            {
+                throw new System.Exception("There is no such id that you are searching for");
+            }
+            
+            db.Set<T>().Remove(itemToRemove);
+            return true;
+        }
+        public bool Add(T entity)
+
+        {
+            var dataTooAdd=db.Set<T>().Add(entity);
+
             db.SaveChanges();
             return true;
         }
 
-        public bool Delete(int id)
-        {
-            var itemToRemove =this.Get(id);
-            db.Set<T>().Remove(itemToRemove);
-            return true;
-        }
+       
 
-        public ICollection<T> Get()
+        public virtual ICollection<T> Get() 
         {
-            var data = db.Set<T>().ToList();
+
+            var data = db.Set<T>().ToList();                                  
             return data;
         }
 
-        public T Get(int id)
-        {
-            var dataToGet = db.Set<T>().Find(id);
-            return dataToGet;
-        }
+      
 
-        public T Search(int id)
+        public virtual T Search(int id)
         {
             var dataToGet = db.Set<T>().Find(id);
+            if (dataToGet == null)
+            {
+                throw new System.Exception("There is no such id that you are searching for");
+            }
+            
             return dataToGet;
         }
 

@@ -7,7 +7,7 @@ namespace MyAssignment.Models
 {
     public class Patient
     {
-        [Key]
+       [Key]
         public int Id { get; set; }
 
 
@@ -15,17 +15,22 @@ namespace MyAssignment.Models
         public int age { get; set; }
         public string gender { get; set; }
         public DateTime DOB { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone Number")]
+        [Required(ErrorMessage = "Phone Number Required!")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$",
+                   ErrorMessage = "Entered phone format is not valid.")]
         public int PhoneNo { get; set; }
+        [Required]
         public string disease { get; set; }
+        [Required]
         public string prescriptions { get; set; }
+        [Required]
         public string Allergies { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [ForeignKey("ClinicId")]
-        public int ClinicId { get; set; }
-        public Clinic Clinic { get; set; }
-        ICollection<Visit> Visit { get; set; }
+        [ForeignKey("PersonId")]
+        public int PersonId { get; set; }
+        public Person Person { get; set; }
+       public ICollection<Visit> Visits { get; set; }
+        
     }
 }

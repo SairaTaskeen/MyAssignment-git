@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyAssignment.Repositories;
+using MyAssignment.Services;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,28 +10,30 @@ using System.Linq;
 
 namespace MyAssignment.Controllers
 {
+   
     [Route("api/[controller]")]
     [ApiController]
-    public class BaseController<T> : ControllerBase
+    public class BaseController<T> : ControllerBase where T : class
     {
-        protected IRepository<T> repo;
-        public BaseController(IRepository<T> repo)
+        protected IService<T> services;
+        public BaseController(IService<T> repo)
         {
-            this.repo = repo;
+            this.services = repo;
         }
         // GET: api/<BaseController>
         [HttpGet]
         public ICollection<T> Get()
         {
-            var data = repo.Get().ToList();
+
+            var data = services.Get().ToList();
             return data;
         }
 
         // GET api/<BaseController>/5
         [HttpGet("{id}")]
-        public T Get(int id)
+        public T Get(int id) 
         {
-           var item=repo.Get(id);
+            var item = services.Get(id);
             return item;
         }
 
@@ -36,7 +41,7 @@ namespace MyAssignment.Controllers
         [HttpPost]
         public bool Post([FromBody] T value)
         {
-           var dataToPost= repo.Add(value);
+           var dataToPost= services.Add(value);
             return dataToPost;
         }
 
@@ -44,7 +49,7 @@ namespace MyAssignment.Controllers
         [HttpPut("{id}")]
         public bool Put(int id, [FromBody] T value)
         {
-            var itemToUpdate = repo.Update(value);
+            var itemToUpdate = services.Update(value);
             return itemToUpdate;
         }
 
@@ -52,7 +57,7 @@ namespace MyAssignment.Controllers
         [HttpDelete("{id}")]
         public bool Delete(int id)
         {
-            var itemTodelete=repo.Delete(id);
+            var itemTodelete= services.Delete(id);
             return itemTodelete;
         }
     }

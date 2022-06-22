@@ -10,18 +10,17 @@ namespace MyAssignment.Models
 
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime DOB { get; set; }
-        public DateTime JoiningDate { get; set; }
         /// <summary>
         /// ///////////
         /// </summary>
+      
+        [ForeignKey("PersonId")]
+        public int PersonId { get; set; }
+        public Person Person { get; set; }
 
-        public ICollection<Doctor> Doctor { get; set; }
+        public ICollection<Doctor> Doctors { get; set; }
 
-        public ICollection<DeskStaff> DeskStaff { get; set; }
-        [ForeignKey("ClinicId")]
-        public int ClinicId { get; set; }
-        public Clinic Clinic { get; set; }
+       public ICollection<DeskStaff> DeskStaff { get; set; }
+       
     }
 }

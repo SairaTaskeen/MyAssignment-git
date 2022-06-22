@@ -4,7 +4,7 @@ namespace MyAssignment.Repositories
 {
     public class DoctorRepository : BaseRepository<Doctor>, IRepository<Doctor>
     {
-        public DoctorRepository(MyDbContext db) : base(db)
+        public DoctorRepository(MyDbContext Doctordb) : base(Doctordb)
         {
         }
     }
