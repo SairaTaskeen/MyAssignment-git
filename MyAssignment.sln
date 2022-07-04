@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAssignment", "MyAssignment\MyAssignment.csproj", "{87DFAF28-E6AB-4F23-A26F-21E448F3B6BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyAssignment", "MyAssignment\MyAssignment.csproj", "{87DFAF28-E6AB-4F23-A26F-21E448F3B6BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extra", "Extra", "{9860572D-B79D-4CE4-968D-8A4A38FCF731}"
+	ProjectSection(SolutionItems) = preProject
+		MyAssignment\AuthenticationHandler\AuthenticationFilter.cs = MyAssignment\AuthenticationHandler\AuthenticationFilter.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

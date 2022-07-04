@@ -44,16 +44,12 @@ namespace MyAssignment.Repositories
         }
 
        
-
         public virtual ICollection<T> Get() 
         {
 
             var data = db.Set<T>().ToList();                                  
             return data;
         }
-
-      
-
         public virtual T Search(int id)
         {
             var dataToGet = db.Set<T>().Find(id);

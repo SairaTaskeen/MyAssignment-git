@@ -9,14 +9,20 @@ namespace MyAssignment.Log
     public class FilterClass : IActionFilter
 
     {
+        protected string Name;
+        public FilterClass(string name)
+        {
+            this.Name = name;
+        }
+
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            Console.WriteLine("OnActionExecuted");
+            Console.WriteLine($"Action executed   {Name}");
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            Console.WriteLine("OnActionExecuting");
+            Console.WriteLine($"Action executing   {Name}");
         }
     }
 

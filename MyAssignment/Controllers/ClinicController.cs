@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using MyAssignment.AuthenticationHandler;
 using MyAssignment.Models;
 using MyAssignment.Repositories;
 using MyAssignment.Services;
@@ -8,11 +12,17 @@ using MyAssignment.Services;
 namespace MyAssignment.Controllers
 {
     [Route("api/[controller]")]
+  
     [ApiController]
+   // [Authorize]
+  
+    [ExceptionFilter]
+
     public class ClinicController : BaseController<Clinic>
     {
-        public ClinicController(IService<Clinic> services) : base(services)
+        public ClinicController(IService<Clinic> repo, ILogger logger, IMapper mapper) : base(repo, logger, mapper)
         {
         }
+     
     }
 }

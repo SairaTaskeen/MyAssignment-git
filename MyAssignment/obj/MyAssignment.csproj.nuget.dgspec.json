@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\OneDrive Constellation HomeBuilder Systems\\OneDrive - Constellation HomeBuilder Systems\\Pictures\\Screenshots\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment.csproj": {}
+    "C:\\Users\\taskesai\\Downloads\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment.csproj": {}
   },
   "projects": {
-    "D:\\OneDrive Constellation HomeBuilder Systems\\OneDrive - Constellation HomeBuilder Systems\\Pictures\\Screenshots\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment.csproj": {
+    "C:\\Users\\taskesai\\Downloads\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\OneDrive Constellation HomeBuilder Systems\\OneDrive - Constellation HomeBuilder Systems\\Pictures\\Screenshots\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment.csproj",
+        "projectUniqueName": "C:\\Users\\taskesai\\Downloads\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment.csproj",
         "projectName": "MyAssignment",
-        "projectPath": "D:\\OneDrive Constellation HomeBuilder Systems\\OneDrive - Constellation HomeBuilder Systems\\Pictures\\Screenshots\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment.csproj",
+        "projectPath": "C:\\Users\\taskesai\\Downloads\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment.csproj",
         "packagesPath": "C:\\Users\\taskesai\\.nuget\\packages\\",
-        "outputPath": "D:\\OneDrive Constellation HomeBuilder Systems\\OneDrive - Constellation HomeBuilder Systems\\Pictures\\Screenshots\\MyAssignment\\MyAssignment\\MyAssignment\\obj\\",
+        "outputPath": "C:\\Users\\taskesai\\Downloads\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment\\MyAssignment\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,6 +44,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            },
+            "Microsoft.AspNet.WebApi.Core": {
+              "target": "Package",
+              "version": "[5.2.9, )"
+            },
             "Microsoft.AspNetCore.Authentication": {
               "target": "Package",
               "version": "[2.2.0, )"

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -34,8 +35,17 @@ namespace MyAssignment
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers(options=>options.Filters.Add(new FilterClass()));
-            services.AddDbContext<MyDbContext>();
+         
+            services.AddControllers();
+           
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            ////////////////////////////////////////////////////////////////////////
+
+            //  services.AddControllers(options=>options.Filters.Add(new FilterClass()));
+           
+
+            services.AddDbContext<MyDbContext>(); 
+            services.AddScoped(typeof(ILogger), typeof(Logger));
             services.AddScoped(typeof(IService<Clinic>), typeof(ClinicServices));
             services.AddScoped(typeof(IService<Person>), typeof(PersonService));
             services.AddScoped(typeof(IService<Staff>), typeof(StaffService));
@@ -51,7 +61,7 @@ namespace MyAssignment
             services.AddScoped(typeof(IRepository<Patient>), typeof(PatientRepository));
             services.AddScoped(typeof(IRepository<Visit>), typeof(VisitRepository));
 
-
+            
             //  services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             //   {
 
@@ -60,10 +70,12 @@ namespace MyAssignment
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAssignment", Version = "v1" });
             });
-            //
-            services.AddAuthentication("BasicAuthentication").AddScheme<AuthenticationSchemeOptions, BasicAuthHandler>("BasicAuthentication", null);
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          services.AddAuthentication("BasicAuthentication").AddScheme<AuthenticationSchemeOptions, BasicAuthHandler>("BasicAuthentication", null);
+            
         }
 
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -77,6 +89,7 @@ namespace MyAssignment
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
             ////////
             ///
             app.UseAuthentication();

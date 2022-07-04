@@ -10,6 +10,9 @@ namespace MyAssignment.Models
 
         [Key]
         public int Id { get; set; }
+        public string Name { get; set; }
+        public DateTime DutyTiming { get; set; }
+
         /// <summary>
         /// ///////////
         /// </summary>

@@ -30,7 +30,8 @@ namespace MyAssignment.Models
         [ForeignKey("PersonId")]
         public int PersonId { get; set; }
         public Person Person { get; set; }
-       public ICollection<Visit> Visits { get; set; }
-        
+        [ForeignKey("VisitId")]
+        public int VisitId { get; set; }
+        public Visit Visit { get; set; }
     }
 }

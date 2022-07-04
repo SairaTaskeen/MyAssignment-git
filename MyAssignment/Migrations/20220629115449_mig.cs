@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyAssignment.Migrations
 {
-    public partial class newmigration : Migration
+    public partial class mig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,6 +22,18 @@ namespace MyAssignment.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Visit",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Visit", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Person",
                 columns: table => new
                 {
@@ -31,7 +43,7 @@ namespace MyAssignment.Migrations
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LogInPwd = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClinicId = table.Column<int>(type: "int", nullable: true)
+                    ClinicId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,7 +53,7 @@ namespace MyAssignment.Migrations
                         column: x => x.ClinicId,
                         principalTable: "Clinic",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,7 +70,8 @@ namespace MyAssignment.Migrations
                     disease = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     prescriptions = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Allergies = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PersonId = table.Column<int>(type: "int", nullable: false)
+                    PersonId = table.Column<int>(type: "int", nullable: false),
+                    VisitId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,6 +82,12 @@ namespace MyAssignment.Migrations
                         principalTable: "Person",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Patient_Visit_VisitId",
+                        column: x => x.VisitId,
+                        principalTable: "Visit",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,18 +96,13 @@ namespace MyAssignment.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClinicId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DutyTiming = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PersonId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Staff", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Staff_Clinic_ClinicId",
-                        column: x => x.ClinicId,
-                        principalTable: "Clinic",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Staff_Person_PersonId",
                         column: x => x.PersonId,
@@ -107,7 +121,7 @@ namespace MyAssignment.Migrations
                     Age = table.Column<int>(type: "int", nullable: false),
                     Qualification = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShiftTiming = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DuetyTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DutyTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StaffId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -127,11 +141,12 @@ namespace MyAssignment.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    age = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
                     phoneNumber = table.Column<int>(type: "int", nullable: false),
                     Qualification = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StaffId = table.Column<int>(type: "int", nullable: false)
+                    StaffId = table.Column<int>(type: "int", nullable: false),
+                    VisitId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -142,23 +157,10 @@ namespace MyAssignment.Migrations
                         principalTable: "Staff",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Visit",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DoctorId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Visit", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Visit_Doctor_DoctorId",
-                        column: x => x.DoctorId,
-                        principalTable: "Doctor",
+                        name: "FK_Doctor_Visit_VisitId",
+                        column: x => x.VisitId,
+                        principalTable: "Visit",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -174,9 +176,19 @@ namespace MyAssignment.Migrations
                 column: "StaffId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Doctor_VisitId",
+                table: "Doctor",
+                column: "VisitId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Patient_PersonId",
                 table: "Patient",
                 column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patient_VisitId",
+                table: "Patient",
+                column: "VisitId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Person_ClinicId",
@@ -184,19 +196,9 @@ namespace MyAssignment.Migrations
                 column: "ClinicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Staff_ClinicId",
-                table: "Staff",
-                column: "ClinicId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Staff_PersonId",
                 table: "Staff",
                 column: "PersonId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Visit_DoctorId",
-                table: "Visit",
-                column: "DoctorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -205,16 +207,16 @@ namespace MyAssignment.Migrations
                 name: "DeskStaff");
 
             migrationBuilder.DropTable(
-                name: "Patient");
-
-            migrationBuilder.DropTable(
-                name: "Visit");
-
-            migrationBuilder.DropTable(
                 name: "Doctor");
 
             migrationBuilder.DropTable(
+                name: "Patient");
+
+            migrationBuilder.DropTable(
                 name: "Staff");
+
+            migrationBuilder.DropTable(
+                name: "Visit");
 
             migrationBuilder.DropTable(
                 name: "Person");

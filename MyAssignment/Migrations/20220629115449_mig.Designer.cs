@@ -10,7 +10,7 @@ using MyAssignment;
 namespace MyAssignment.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220622140436_mig")]
+    [Migration("20220629115449_mig")]
     partial class mig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,7 +52,7 @@ namespace MyAssignment.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DuetyTime")
+                    b.Property<DateTime>("DutyTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -82,18 +82,21 @@ namespace MyAssignment.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Qualification")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
 
-                    b.Property<int>("age")
+                    b.Property<int>("VisitId")
                         .HasColumnType("int");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("phoneNumber")
                         .HasColumnType("int");
@@ -101,6 +104,8 @@ namespace MyAssignment.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("StaffId");
+
+                    b.HasIndex("VisitId");
 
                     b.ToTable("Doctor");
                 });
@@ -128,6 +133,9 @@ namespace MyAssignment.Migrations
                     b.Property<int>("PhoneNo")
                         .HasColumnType("int");
 
+                    b.Property<int>("VisitId")
+                        .HasColumnType("int");
+
                     b.Property<int>("age")
                         .HasColumnType("int");
 
@@ -146,6 +154,8 @@ namespace MyAssignment.Migrations
 
                     b.HasIndex("PersonId");
 
+                    b.HasIndex("VisitId");
+
                     b.ToTable("Patient");
                 });
 
@@ -156,7 +166,7 @@ namespace MyAssignment.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("ClinicId")
+                    b.Property<int>("ClinicId")
                         .HasColumnType("int");
 
                     b.Property<string>("LogInPwd")
@@ -187,6 +197,12 @@ namespace MyAssignment.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<DateTime>("DutyTiming")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
@@ -204,17 +220,7 @@ namespace MyAssignment.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("DoctorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PatientID")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("PatientID");
 
                     b.ToTable("Visit");
                 });
@@ -233,12 +239,20 @@ namespace MyAssignment.Migrations
             modelBuilder.Entity("MyAssignment.Models.Doctor", b =>
                 {
                     b.HasOne("MyAssignment.Models.Staff", "Staff")
-                        .WithMany("Doctor")
+                        .WithMany("Doctors")
                         .HasForeignKey("StaffId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MyAssignment.Models.Visit", "Visit")
+                        .WithMany()
+                        .HasForeignKey("VisitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Staff");
+
+                    b.Navigation("Visit");
                 });
 
             modelBuilder.Entity("MyAssignment.Models.Patient", b =>
@@ -249,14 +263,24 @@ namespace MyAssignment.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MyAssignment.Models.Visit", "Visit")
+                        .WithMany()
+                        .HasForeignKey("VisitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Person");
+
+                    b.Navigation("Visit");
                 });
 
             modelBuilder.Entity("MyAssignment.Models.Person", b =>
                 {
                     b.HasOne("MyAssignment.Models.Clinic", "Clinic")
                         .WithMany("Person")
-                        .HasForeignKey("ClinicId");
+                        .HasForeignKey("ClinicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Clinic");
                 });
@@ -272,38 +296,9 @@ namespace MyAssignment.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("MyAssignment.Models.Visit", b =>
-                {
-                    b.HasOne("MyAssignment.Models.Doctor", "Doctor")
-                        .WithMany("Visits")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyAssignment.Models.Patient", "Patient")
-                        .WithMany("Visits")
-                        .HasForeignKey("PatientID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Doctor");
-
-                    b.Navigation("Patient");
-                });
-
             modelBuilder.Entity("MyAssignment.Models.Clinic", b =>
                 {
                     b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("MyAssignment.Models.Doctor", b =>
-                {
-                    b.Navigation("Visits");
-                });
-
-            modelBuilder.Entity("MyAssignment.Models.Patient", b =>
-                {
-                    b.Navigation("Visits");
                 });
 
             modelBuilder.Entity("MyAssignment.Models.Person", b =>
@@ -317,7 +312,7 @@ namespace MyAssignment.Migrations
                 {
                     b.Navigation("DeskStaff");
 
-                    b.Navigation("Doctor");
+                    b.Navigation("Doctors");
                 });
 #pragma warning restore 612, 618
         }

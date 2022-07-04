@@ -23,17 +23,47 @@ namespace MyAssignment.AuthenticationHandler
         {
         }
         //we are using async here to handle the request asynchronously
-        protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
+        protected override Task<AuthenticateResult> HandleAuthenticateAsync()
             //whenever a request need authentication this method will get called 
         {
-
             ///// if we have the authorization tag in the header then
             
-            return AuthenticateResult.Fail("Need To implement");
+            return Task.FromResult(AuthenticateResult.Fail("Need To implement"));
         }
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*if (!Request.Headers.ContainsKey("Authorization"))
             {
                 return AuthenticateResult.Fail("Authorization header was not found");
