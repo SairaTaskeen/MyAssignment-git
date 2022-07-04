@@ -18,9 +18,12 @@ namespace MyAssignment.Controllers
   
     [Route("api/[controller]")]
     [ApiController]
+    [ExceptionFilter]
 
+    //  [AuthAttribute("Index", "Admin")]
+    //or we can pass this attribute 
     //  [Authorize]
- 
+
 
     public class BaseController<T> : ControllerBase where T : class
     {
